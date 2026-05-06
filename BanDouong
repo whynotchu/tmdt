@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tiệm Nước Trái Cây</title>
+  <style>
+    .layout-content {
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      gap:24px;
+      margin-top:24px;
+      overflow-x:auto;
+      padding-bottom:20px;
+    }
+    .layout-content > * {
+      flex-shrink:0;
+    }
+    .filter-btn {
+      border:none;
+      border-radius:999px;
+      padding:12px 18px;
+      background:#fff5ee;
+      color:#d23f4a;
+      cursor:pointer;
+      font-size:0.95rem;
+      text-align:left;
+      transition:all .2s ease;
+      width:100%;
+    }
+    .filter-btn.active {
+      background:#d23f4a;
+      color:#fff;
+      box-shadow:0 10px 18px rgba(210,63,74,0.18);
+    }
+    .filter-btn:hover {
+      background:#f9e1dc;
+    }
+    @media (max-width:920px) {
+      .layout-content {
+        padding-bottom:12px;
+      }
+      .filter-btn {
+        padding:12px 16px;
+      }
+      main {
+        min-width:320px;
+      }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#fff7f0,#ffe8d7);color:#2b2b2b;">
+  <div style="max-width:1200px;margin:0 auto;padding:24px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px;background:rgba(255,255,255,0.96);border-radius:32px;box-shadow:0 24px 50px rgba(0,0,0,0.08);">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <img src="https://th.bing.com/th/id/OIP.J33JmvIC4Eu_Cgkf01WVtgHaFj?w=240&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Logo Tiệm Nước" style="width:72px;height:72px;object-fit:cover;border-radius:20px;box-shadow:0 16px 30px rgba(210,63,74,0.16);">
+        <div>
+          <h1 style="margin:0;font-size:2.2rem;color:#d23f4a;letter-spacing:0.5px;">Tiệm Nước Trái Cây</h1>
+          <p style="margin:8px 0 0;font-size:0.95rem;line-height:1.6;color:#6b4031;">Thức uống mát lạnh, trái cây tươi, chọn nhanh theo loại.</p>
+        </div>
+      </div>
+      <button id="cartToggle" onclick="toggleCart()" style="border:none;border-radius:22px;padding:14px 18px;background:#d23f4a;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 12px 24px rgba(210,63,74,0.18);">
+        <span style="font-size:1.4rem;">🛒</span>
+        Giỏ hàng
+        <span id="cartCount" style="min-width:24px;height:24px;border-radius:999px;background:#fff;color:#d23f4a;display:inline-flex;align-items:center;justify-content:center;font-weight:700;">0</span>
+      </button>
+    </div>
+
+    <div class="layout-content">
+      <aside style="flex:0 0 280px;min-width:260px;align-self:flex-start;background:#ffffff;border:1px solid rgba(210,63,74,0.12);border-radius:32px;box-shadow:0 20px 40px rgba(0,0,0,0.04);padding:28px;">
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">Tất cả</button>
+          <button class="filter-btn" data-filter="nuocep" onclick="setFilter('nuocep')">Nước ép</button>
+          <button class="filter-btn" data-filter="tra" onclick="setFilter('tra')">Trà</button>
+          <button class="filter-btn" data-filter="caphe" onclick="setFilter('caphe')">Cà phê</button>
+        </div>
+        <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+          <span style="font-weight:700;color:#6b4031;">Lọc thêm</span>
+          <select id="menuFilter" onchange="filterMenu()" style="border:1px solid #e6b39c;border-radius:18px;padding:12px 14px;background:#fff;color:#2b2b2b;outline:none;">
+            <option value="all">Tất cả</option>
+            <option value="nuocep">Nước ép</option>
+            <option value="tra">Trà</option>
+            <option value="caphe">Cà phê</option>
+          </select>
+        </div>
+      </aside>
+      <main style="flex:1 1 760px;min-width:360px;max-width:780px;background:linear-gradient(180deg,#ffd8c0,#fff4ec);border-radius:32px;box-shadow:0 24px 50px rgba(0,0,0,0.08);padding:32px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.jwuM4VEmPQnR3x4G4Q0QvgHaG9?w=169&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Nước chanh dây" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Nước chanh dây</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Chanh dây tươi, ngọt nhẹ, mát lạnh.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">15k</span>
+              <button onclick="addToCart(1)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.JiEyyrwuKXGueAkPKhQmHQHaEe?w=270&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Dừa tươi" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Dừa tươi</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Dừa mềm, ngọt thanh và sảng khoái.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">15k</span>
+              <button onclick="addToCart(2)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.hlACdrWMzdIUoNM8AUCiGAHaHa?w=172&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Cam ép" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Cam ép</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Tươi, ngọt, vitamin C tràn đầy.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">17k</span>
+              <button onclick="addToCart(3)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.qPPpiTloRExidFSoCx5R-QHaHa?w=177&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Cà rốt ép" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Cà rốt ép</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Giàu dinh dưỡng và tươi mát.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">20k</span>
+              <button onclick="addToCart(4)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.dxMhvCuyzil9_KO-MO6NgAHaHa?w=168&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Ổi ép" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Ổi ép</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Hương ổi ngọt dịu, cực kỳ giải nhiệt.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">20k</span>
+              <button onclick="addToCart(5)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.6v3L7WFqKF0flKSfbwd4mgHaHa?w=169&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Thơm ép" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Thơm ép</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Thơm vàng, ngọt thanh, mát lạnh.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">20k</span>
+              <button onclick="addToCart(6)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="tra" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.B-AR5C_JGCEeHVrVWMo_ZQHaGN?w=221&h=185&c=7&r=0&o=7&pid=1.7&rm=3" alt="Trà tắc" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Trà tắc</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Trà chanh tắc thơm ngon mát lạnh.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">12k</span>
+              <button onclick="addToCart(7)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="tra" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.jS9dQAaBUliE9P_aq2gpVgHaHa?w=187&h=187&c=7&r=0&o=7&pid=1.7&rm=3" alt="Trà cam xí muội" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Trà cam xí muội</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Vị cam chua ngọt cùng xí muội đặc trưng.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">15k</span>
+              <button onclick="addToCart(8)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="caphe" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.UpnafN6KCbFifo2Z20qZAwHaHa?w=220&h=220&c=7&r=0&o=7&pid=1.7&rm=3" alt="Cà phê đen đá" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Cà phê đen đá</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Cà phê đen nguyên chất, đậm vị.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">15k</span>
+              <button onclick="addToCart(9)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="caphe" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.-kwobbU7-_CkAir5ejO4vgHaFy?w=223&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Cà phê sữa đá" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Cà phê sữa đá</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Cà phê sữa thơm béo, mát lạnh.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">17k</span>
+              <button onclick="addToCart(10)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+
+          <div data-type="caphe" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
+            <img src="https://th.bing.com/th/id/OIP.xYqI-RkLi3UaRXbtypn37wHaHa?w=198&h=198&c=7&r=0&o=7&pid=1.7&rm=3" alt="Bạc xỉu đá" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
+            <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Bạc xỉu đá</h3>
+            <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Đậm đà, sữa béo và lạnh mát.</p>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-weight:700;color:#2d2d2d;">17k</span>
+              <button onclick="addToCart(11)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div id="cartOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(3px);z-index:999;align-items:center;justify-content:center;padding:24px;">
+    <div style="width:100%;max-width:420px;background:#ffffff;border-radius:32px;box-shadow:0 32px 72px rgba(0,0,0,0.18);padding:28px;position:relative;">
+      <button onclick="toggleCart()" style="position:absolute;top:18px;right:18px;border:none;background:transparent;color:#d23f4a;font-size:1.6rem;cursor:pointer;">×</button>
+      <h2 style="margin:0 0 14px;font-size:1.7rem;color:#d23f4a;">Giỏ hàng</h2>
+      <div id="cartItems" style="min-height:260px;"></div>
+      <div style="margin-top:18px;padding:18px;border-radius:24px;background:#fff0e8;color:#6b3d35;">
+        <p style="margin:0 0 8px;font-weight:700;font-size:1rem;">Tổng cộng</p>
+        <p id="cartTotal" style="margin:0;font-size:1.6rem;">0k</p>
+      </div>
+      <button id="checkoutBtn" onclick="checkout()" style="width:100%;margin-top:18px;border:none;border-radius:24px;padding:16px 0;background:#d23f4a;color:#ffffff;font-size:1rem;cursor:pointer;">Thanh toán</button>
+      <div id="checkoutMessage" style="margin-top:16px;padding:14px;border-radius:20px;background:#f8fff4;color:#2f6622;display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      {id:1,name:'Nước chanh dây',price:15},
+      {id:2,name:'Dừa tươi',price:15},
+      {id:3,name:'Cam ép',price:17},
+      {id:4,name:'Cà rốt ép',price:20},
+      {id:5,name:'Ổi ép',price:20},
+      {id:6,name:'Thơm ép',price:20},
+      {id:7,name:'Trà tắc',price:12},
+      {id:8,name:'Trà cam xí muội',price:15},
+      {id:9,name:'Cà phê đen đá',price:15},
+      {id:10,name:'Cà phê sữa đá',price:17},
+      {id:11,name:'Bạc xỉu đá',price:17}
+    ];
+    const cart = {};
+    const cartItemsEl = document.getElementById('cartItems');
+    const cartTotalEl = document.getElementById('cartTotal');
+    const checkoutMessageEl = document.getElementById('checkoutMessage');
+    const cartOverlayEl = document.getElementById('cartOverlay');
+    const cartCountEl = document.getElementById('cartCount');
+    const menuFilterEl = document.getElementById('menuFilter');
+    const productCards = document.querySelectorAll('[data-type]');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    function setFilter(type) {
+      menuFilterEl.value = type;
+      updateFilterButtons(type);
+      filterMenu();
+    }
+
+    function updateFilterButtons(type) {
+      filterButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === type);
+      });
+    }
+
+    function filterMenu() {
+      const type = menuFilterEl.value;
+      updateFilterButtons(type);
+      productCards.forEach(card => {
+        card.style.display = type === 'all' || card.dataset.type === type ? 'block' : 'none';
+      });
+    }
+
+    function renderCart() {
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        cartItemsEl.innerHTML = '<p style="margin:0;color:#6f5a52;">Giỏ hàng trống. Chọn món bạn thích nhé!</p>';
+      } else {
+        cartItemsEl.innerHTML = entries.map(([id, qty]) => {
+          const item = items.find(i => i.id === Number(id));
+          return '<div style="margin-bottom:14px;padding:14px;border-radius:22px;background:#fff4ea;display:flex;align-items:center;justify-content:space-between;">' +
+            '<div><div style="font-weight:700;color:#2d2d2d;">' + item.name + '</div>' +
+            '<div style="font-size:0.9rem;color:#6b4a42;margin-top:4px;">' + qty + ' x ' + item.price + 'k</div></div>' +
+            '<div style="display:flex;align-items:center;gap:8px;">' +
+            '<button onclick="removeFromCart(' + item.id + ')" style="border:none;border-radius:14px;padding:8px 10px;background:#ffb4a0;color:#7a3028;cursor:pointer;">-</button>' +
+            '<button onclick="addToCart(' + item.id + ')" style="border:none;border-radius:14px;padding:8px 10px;background:#d23f4a;color:#fff;cursor:pointer;">+</button>' +
+            '</div></div>';
+        }).join('');
+      }
+      const total = entries.reduce((sum,[id,qty]) => {
+        const item = items.find(i => i.id === Number(id));
+        return sum + item.price * qty;
+      }, 0);
+      cartTotalEl.textContent = total + 'k';
+      cartCountEl.textContent = entries.reduce((sum,[,qty]) => sum + qty, 0);
+      checkoutMessageEl.style.display = 'none';
+    }
+
+    function addToCart(id) {
+      cart[id] = (cart[id] || 0) + 1;
+      renderCart();
+    }
+
+    function removeFromCart(id) {
+      if (!cart[id]) return;
+      cart[id]--;
+      if (cart[id] === 0) delete cart[id];
+      renderCart();
+    }
+
+    function toggleCart() {
+      cartOverlayEl.style.display = cartOverlayEl.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function checkout() {
+      const entries = Object.entries(cart);
+      if (entries.length === 0) {
+        checkoutMessageEl.style.display = 'block';
+        checkoutMessageEl.textContent = 'Giỏ hàng trống, vui lòng thêm món trước khi thanh toán.';
+        checkoutMessageEl.style.background = '#fff2f2';
+        checkoutMessageEl.style.color = '#9d2a2a';
+        return;
+      }
+      let summary = 'Bạn đã đặt:\n';
+      let total = 0;
+      entries.forEach(([id,qty]) => {
+        const item = items.find(i => i.id === Number(id));
+        summary += qty + ' x ' + item.name + ' (' + item.price + 'k)\n';
+        total += item.price * qty;
+      });
+      summary += 'Tổng: ' + total + 'k';
+      checkoutMessageEl.style.display = 'block';
+      checkoutMessageEl.style.background = '#f0fff3';
+      checkoutMessageEl.style.color = '#1f5d28';
+      checkoutMessageEl.textContent = 'Cảm ơn bạn đã mua hàng! ' + summary.replace(/\n/g, ' • ');
+      Object.keys(cart).forEach(k => delete cart[k]);
+      renderCart();
+    }
+
+    renderCart();
+    filterMenu();
+  </script>
+</body>
+</html>
