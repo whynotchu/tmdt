@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Tiệm Nước Trái Cây</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     .layout-content {
       display:flex;
@@ -19,14 +20,15 @@
     .filter-btn {
       border:none;
       border-radius:999px;
-      padding:12px 18px;
+      padding:16px 20px;
       background:#fff5ee;
       color:#d23f4a;
       cursor:pointer;
       font-size:0.95rem;
       text-align:left;
-      transition:all .2s ease;
+      transition:all .3s ease;
       width:100%;
+      box-shadow:0 4px 12px rgba(210,63,74,0.15);
     }
     .filter-btn.active {
       background:#d23f4a;
@@ -35,35 +37,120 @@
     }
     .filter-btn:hover {
       background:#f9e1dc;
+      transform: scale(1.05);
+    }
+    .add-btn {
+      border:none;
+      border-radius:18px;
+      padding:12px 16px;
+      background:#d23f4a;
+      color:#fff;
+      cursor:pointer;
+      font-weight:600;
+      transition:all .3s ease;
+      box-shadow:0 4px 12px rgba(210,63,74,0.3);
+    }
+    .add-btn:hover {
+      transform: scale(1.05);
+      box-shadow:0 6px 20px rgba(210,63,74,0.4);
+    }
+    div[data-type] {
+      box-shadow:0 8px 24px rgba(0,0,0,0.1);
+    }
+    .search-input {
+      border:1px solid #e6b39c;
+      border-radius:18px;
+      padding:12px 16px;
+      background:#fff;
+      color:#2b2b2b;
+      outline:none;
+      font-size:0.95rem;
+      width:200px;
+      transition:all .3s ease;
+    }
+    .search-input:focus {
+      border-color:#d23f4a;
+      box-shadow:0 0 0 3px rgba(210,63,74,0.1);
+    }
+    .skeleton {
+      background:linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size:200% 100%;
+      animation:skeleton-loading 1.5s infinite;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position:200% 0; }
+      100% { background-position:-200% 0; }
+    }
+    .skeleton-card {
+      height:160px;
+      border-radius:18px;
+      margin-bottom:14px;
+    }
+    .skeleton-text {
+      height:1rem;
+      border-radius:4px;
+      margin-bottom:8px;
+    }
+    .skeleton-text.short {
+      width:60%;
     }
     @media (max-width:920px) {
       .layout-content {
         padding-bottom:12px;
       }
       .filter-btn {
-        padding:12px 16px;
+        padding:16px 18px;
       }
       main {
         min-width:320px;
       }
+      .search-input {
+        width:150px;
+      }
+    }
+    @media (max-width:768px) {
+      .layout-content {
+        flex-direction:column;
+        gap:20px;
+      }
+      aside {
+        flex:0 0 auto;
+        width:100%;
+        min-width:0;
+      }
+      main {
+        flex:1 1 auto;
+        min-width:0;
+      }
+      main > div {
+        grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+        gap:16px;
+      }
+      .search-input {
+        width:100%;
+        max-width:300px;
+      }
     }
   </style>
 </head>
-<body style="margin:0;padding:0;font-family:Arial,sans-serif;background:linear-gradient(180deg,#fff7f0,#ffe8d7);color:#2b2b2b;">
+<body style="margin:0;padding:0;font-family:'Poppins',Arial,sans-serif;background:linear-gradient(180deg,#fff7f0,#ffe8d7);color:#2b2b2b;">
   <div style="max-width:1200px;margin:0 auto;padding:24px;">
     <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px;background:rgba(255,255,255,0.96);border-radius:32px;box-shadow:0 24px 50px rgba(0,0,0,0.08);">
       <div style="display:flex;align-items:center;gap:16px;">
-        <img src="https://th.bing.com/th/id/OIP.J33JmvIC4Eu_Cgkf01WVtgHaFj?w=240&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Logo Tiệm Nước" style="width:72px;height:72px;object-fit:cover;border-radius:20px;box-shadow:0 16px 30px rgba(210,63,74,0.16);">
+        <img src="https://th.bing.com/th/id/OIP.J33JmvIC4Eu_Cgkf01WVtgHaFj?w=240&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Logo Tiệm Nước Trái Cây" style="width:72px;height:72px;object-fit:cover;border-radius:20px;box-shadow:0 16px 30px rgba(210,63,74,0.16);">
         <div>
           <h1 style="margin:0;font-size:2.2rem;color:#d23f4a;letter-spacing:0.5px;">Tiệm Nước Trái Cây</h1>
-          <p style="margin:8px 0 0;font-size:0.95rem;line-height:1.6;color:#6b4031;">Thức uống mát lạnh, trái cây tươi, chọn nhanh theo loại.</p>
+          <p style="margin:8px 0 0;font-size:0.95rem;line-height:1.6;color:#333;">Thức uống mát lạnh, trái cây tươi, chọn nhanh theo loại.</p>
         </div>
       </div>
-      <button id="cartToggle" onclick="toggleCart()" style="border:none;border-radius:22px;padding:14px 18px;background:#d23f4a;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 12px 24px rgba(210,63,74,0.18);">
-        <span style="font-size:1.4rem;">🛒</span>
-        Giỏ hàng
-        <span id="cartCount" style="min-width:24px;height:24px;border-radius:999px;background:#fff;color:#d23f4a;display:inline-flex;align-items:center;justify-content:center;font-weight:700;">0</span>
-      </button>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <input type="text" id="searchInput" class="search-input" placeholder="Tìm kiếm đồ uống..." aria-label="Tìm kiếm đồ uống">
+        <button id="cartToggle" onclick="toggleCart()" style="border:none;border-radius:22px;padding:14px 18px;background:#d23f4a;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:0 12px 24px rgba(210,63,74,0.18);" aria-label="Mở giỏ hàng">
+          <span style="font-size:1.4rem;">🛒</span>
+          Giỏ hàng
+          <span id="cartCount" style="min-width:24px;height:24px;border-radius:999px;background:#fff;color:#d23f4a;display:inline-flex;align-items:center;justify-content:center;font-weight:700;" aria-label="Số lượng trong giỏ hàng">0</span>
+        </button>
+      </div>
     </div>
 
     <div class="layout-content">
@@ -86,13 +173,37 @@
       </aside>
       <main style="flex:1 1 760px;min-width:360px;max-width:780px;background:linear-gradient(180deg,#ffd8c0,#fff4ec);border-radius:32px;box-shadow:0 24px 50px rgba(0,0,0,0.08);padding:32px;">
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-card skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
+          <div class="skeleton-text short skeleton"></div>
+          <div class="skeleton-text skeleton"></div>
           <div data-type="nuocep" style="background:#ffffff;border-radius:26px;padding:18px;box-shadow:0 16px 32px rgba(0,0,0,0.06);">
             <img src="https://th.bing.com/th/id/OIP.jwuM4VEmPQnR3x4G4Q0QvgHaG9?w=169&h=180&c=7&r=0&o=7&pid=1.7&rm=3" alt="Nước chanh dây" style="width:100%;height:160px;object-fit:cover;border-radius:18px;margin-bottom:14px;">
             <h3 style="margin:0 0 8px;font-size:1.15rem;color:#d23f4a;">Nước chanh dây</h3>
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Chanh dây tươi, ngọt nhẹ, mát lạnh.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">15k</span>
-              <button onclick="addToCart(1)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(1)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -102,7 +213,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Dừa mềm, ngọt thanh và sảng khoái.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">15k</span>
-              <button onclick="addToCart(2)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(2)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -112,7 +223,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Tươi, ngọt, vitamin C tràn đầy.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">17k</span>
-              <button onclick="addToCart(3)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(3)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -122,7 +233,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Giàu dinh dưỡng và tươi mát.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">20k</span>
-              <button onclick="addToCart(4)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(4)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -132,7 +243,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Hương ổi ngọt dịu, cực kỳ giải nhiệt.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">20k</span>
-              <button onclick="addToCart(5)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(5)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -142,7 +253,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Thơm vàng, ngọt thanh, mát lạnh.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">20k</span>
-              <button onclick="addToCart(6)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(6)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -152,7 +263,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Trà chanh tắc thơm ngon mát lạnh.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">12k</span>
-              <button onclick="addToCart(7)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(7)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -162,7 +273,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Vị cam chua ngọt cùng xí muội đặc trưng.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">15k</span>
-              <button onclick="addToCart(8)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(8)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -172,7 +283,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Cà phê đen nguyên chất, đậm vị.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">15k</span>
-              <button onclick="addToCart(9)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(9)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -182,7 +293,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Cà phê sữa thơm béo, mát lạnh.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">17k</span>
-              <button onclick="addToCart(10)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(10)" class="add-btn">Thêm</button>
             </div>
           </div>
 
@@ -192,7 +303,7 @@
             <p style="margin:0 0 14px;font-size:0.95rem;color:#5b4236;">Đậm đà, sữa béo và lạnh mát.</p>
             <div style="display:flex;align-items:center;justify-content:space-between;">
               <span style="font-weight:700;color:#2d2d2d;">17k</span>
-              <button onclick="addToCart(11)" style="border:none;border-radius:18px;padding:10px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Thêm</button>
+              <button onclick="addToCart(11)" class="add-btn">Thêm</button>
             </div>
           </div>
         </div>
@@ -256,6 +367,36 @@
     const menuFilterEl = document.getElementById('menuFilter');
     const productCards = document.querySelectorAll('[data-type]');
     const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInputEl = document.getElementById('searchInput');
+
+    function setFilter(type) {
+      menuFilterEl.value = type;
+      updateFilterButtons(type);
+      filterMenu();
+    }
+
+    function updateFilterButtons(type) {
+      filterButtons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === type);
+      });
+    }
+
+    function filterMenu() {
+      const type = menuFilterEl.value;
+      updateFilterButtons(type);
+      productCards.forEach(card => {
+        card.style.display = type === 'all' || card.dataset.type === type ? 'block' : 'none';
+      });
+    }
+
+    function filterSearch() {
+      const query = searchInputEl.value.toLowerCase();
+      productCards.forEach(card => {
+        const name = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        card.style.display = name.includes(query) || desc.includes(query) ? 'block' : 'none';
+      });
+    }
 
     function setFilter(type) {
       menuFilterEl.value = type;
@@ -348,6 +489,12 @@
 
     renderCart();
     filterMenu();
+    searchInputEl.addEventListener('input', filterSearch);
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelectorAll('.skeleton').forEach(el => el.remove());
+      }, 1500);
+    });
   </script>
 </body>
 </html>
