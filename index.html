@@ -223,6 +223,7 @@
           <p style="margin:0;font-weight:700;">THAI VIET HOANG</p>
           <p style="margin:4px 0 0;font-size:0.95rem;">Tài khoản: 102883045825</p>
           <p style="margin:4px 0 0;font-size:0.95rem;">VietinBank - CN Lâm Đồng - PGD Phan Đình Phùng</p>
+          <button onclick="confirmTransfer()" style="margin-top:14px;width:100%;border:none;border-radius:20px;padding:12px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Tôi đã chuyển khoản</button>
         </div>
       </div>
       <div id="checkoutMessage" style="margin-top:16px;padding:14px;border-radius:20px;background:#f8fff4;color:#2f6622;display:none;"></div>
@@ -284,10 +285,8 @@
         checkoutMessageEl.style.background = '#fff7e7';
         checkoutMessageEl.style.color = '#7a4a2b';
         checkoutMessageEl.textContent = 'Bạn đã chọn thanh toán bằng tiền mặt. Nhân viên sẽ liên hệ để xác nhận đơn hàng.';
-        toggleCart();
+        setTimeout(toggleCart, 3000);
       } else if (method === 'transfer') {
-        paymentDetailsEl.style.display = 'block';
-        qrImageEl.style.display = 'block';
         paymentDetailsEl.style.display = 'block';
         checkoutMessageEl.style.display = 'block';
         checkoutMessageEl.style.background = '#f0fff3';
@@ -339,27 +338,12 @@
       cartOverlayEl.style.display = cartOverlayEl.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    function checkout() {
-      const entries = Object.entries(cart);
-      if (entries.length === 0) {
-        checkoutMessageEl.style.display = 'block';
-        checkoutMessageEl.textContent = 'Giỏ hàng trống, vui lòng thêm món trước khi thanh toán.';
-        checkoutMessageEl.style.background = '#fff2f2';
-        checkoutMessageEl.style.color = '#9d2a2a';
-        paymentOptionsEl.style.display = 'none';
-        paymentDetailsEl.style.display = 'none';
-        return;
-      }
-      let total = entries.reduce((sum,[id,qty]) => {
-        const item = items.find(i => i.id === Number(id));
-        return sum + item.price * qty;
-      }, 0);
-      paymentOptionsEl.style.display = 'block';
-      paymentDetailsEl.style.display = 'none';
+    function confirmTransfer() {
+      checkoutMessageEl.textContent = 'Cảm ơn bạn đã thanh toán. Nhân viên sẽ xác nhận đơn hàng.';
+      checkoutMessageEl.style.background = '#f0fff3';
+      checkoutMessageEl.style.color = '#1f5d28';
       checkoutMessageEl.style.display = 'block';
-      checkoutMessageEl.style.background = '#fff4e8';
-      checkoutMessageEl.style.color = '#6b4031';
-      checkoutMessageEl.textContent = 'Chọn phương thức thanh toán để hoàn tất đơn hàng. Tổng: ' + total + 'k.';
+      setTimeout(toggleCart, 2000);
     }
 
     renderCart();
