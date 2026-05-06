@@ -284,6 +284,7 @@
         checkoutMessageEl.style.background = '#fff7e7';
         checkoutMessageEl.style.color = '#7a4a2b';
         checkoutMessageEl.textContent = 'Bạn đã chọn thanh toán bằng tiền mặt. Nhân viên sẽ liên hệ để xác nhận đơn hàng.';
+        toggleCart();
       } else if (method === 'transfer') {
         paymentDetailsEl.style.display = 'block';
         qrImageEl.style.display = 'block';
