@@ -211,6 +211,20 @@
         <p id="cartTotal" style="margin:0;font-size:1.6rem;">0k</p>
       </div>
       <button id="checkoutBtn" onclick="checkout()" style="width:100%;margin-top:18px;border:none;border-radius:24px;padding:16px 0;background:#d23f4a;color:#ffffff;font-size:1rem;cursor:pointer;">Thanh toán</button>
+      <div id="paymentOptions" style="display:none;margin-top:18px;padding:18px;border-radius:24px;background:#fff4ea;color:#6b3d35;">
+        <p style="margin:0 0 12px;font-weight:700;font-size:1rem;color:#d23f4a;">Chọn phương thức thanh toán</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button onclick="choosePayment('cash')" style="flex:1 1 140px;border:none;border-radius:20px;padding:12px 14px;background:#f0c6b5;color:#7a2a24;cursor:pointer;">Tiền mặt</button>
+          <button onclick="choosePayment('transfer')" style="flex:1 1 140px;border:none;border-radius:20px;padding:12px 14px;background:#d23f4a;color:#fff;cursor:pointer;">Chuyển khoản</button>
+        </div>
+        <div id="paymentDetails" style="display:none;margin-top:18px;padding:16px;border-radius:22px;background:#ffffff;border:1px solid rgba(210,63,74,0.16);">
+          <p style="margin:0 0 10px;font-weight:700;color:#d23f4a;">Chuyển khoản bằng mã QR</p>
+          <img id="qrImage" src="image/qr.png" alt="QR chuyển khoản" style="width:100%;max-width:240px;border-radius:18px;display:block;margin:0 auto 14px;">
+          <p style="margin:0;font-weight:700;">THAI VIET HOANG</p>
+          <p style="margin:4px 0 0;font-size:0.95rem;">Tài khoản: 102883045825</p>
+          <p style="margin:4px 0 0;font-size:0.95rem;">VietinBank - CN Lâm Đồng - PGD Phan Đình Phùng</p>
+        </div>
+      </div>
       <div id="checkoutMessage" style="margin-top:16px;padding:14px;border-radius:20px;background:#f8fff4;color:#2f6622;display:none;"></div>
     </div>
   </div>
@@ -233,6 +247,9 @@
     const cartItemsEl = document.getElementById('cartItems');
     const cartTotalEl = document.getElementById('cartTotal');
     const checkoutMessageEl = document.getElementById('checkoutMessage');
+    const paymentOptionsEl = document.getElementById('paymentOptions');
+    const paymentDetailsEl = document.getElementById('paymentDetails');
+    const qrImageEl = document.getElementById('qrImage');
     const cartOverlayEl = document.getElementById('cartOverlay');
     const cartCountEl = document.getElementById('cartCount');
     const menuFilterEl = document.getElementById('menuFilter');
@@ -259,10 +276,31 @@
       });
     }
 
+    function choosePayment(method) {
+      checkoutMessageEl.style.display = 'none';
+      if (method === 'cash') {
+        paymentDetailsEl.style.display = 'none';
+        checkoutMessageEl.style.display = 'block';
+        checkoutMessageEl.style.background = '#fff7e7';
+        checkoutMessageEl.style.color = '#7a4a2b';
+        checkoutMessageEl.textContent = 'Bạn đã chọn thanh toán bằng tiền mặt. Nhân viên sẽ liên hệ để xác nhận đơn hàng.';
+      } else if (method === 'transfer') {
+        paymentDetailsEl.style.display = 'block';
+        qrImageEl.style.display = 'block';
+        paymentDetailsEl.style.display = 'block';
+        checkoutMessageEl.style.display = 'block';
+        checkoutMessageEl.style.background = '#f0fff3';
+        checkoutMessageEl.style.color = '#1f5d28';
+        checkoutMessageEl.textContent = 'Quét mã QR để chuyển khoản hoặc dùng thông tin ngân hàng bên dưới.';
+      }
+    }
+
     function renderCart() {
       const entries = Object.entries(cart);
       if (entries.length === 0) {
         cartItemsEl.innerHTML = '<p style="margin:0;color:#6f5a52;">Giỏ hàng trống. Chọn món bạn thích nhé!</p>';
+        paymentOptionsEl.style.display = 'none';
+        paymentDetailsEl.style.display = 'none';
       } else {
         cartItemsEl.innerHTML = entries.map(([id, qty]) => {
           const item = items.find(i => i.id === Number(id));
@@ -307,22 +345,20 @@
         checkoutMessageEl.textContent = 'Giỏ hàng trống, vui lòng thêm món trước khi thanh toán.';
         checkoutMessageEl.style.background = '#fff2f2';
         checkoutMessageEl.style.color = '#9d2a2a';
+        paymentOptionsEl.style.display = 'none';
+        paymentDetailsEl.style.display = 'none';
         return;
       }
-      let summary = 'Bạn đã đặt:\n';
-      let total = 0;
-      entries.forEach(([id,qty]) => {
+      let total = entries.reduce((sum,[id,qty]) => {
         const item = items.find(i => i.id === Number(id));
-        summary += qty + ' x ' + item.name + ' (' + item.price + 'k)\n';
-        total += item.price * qty;
-      });
-      summary += 'Tổng: ' + total + 'k';
+        return sum + item.price * qty;
+      }, 0);
+      paymentOptionsEl.style.display = 'block';
+      paymentDetailsEl.style.display = 'none';
       checkoutMessageEl.style.display = 'block';
-      checkoutMessageEl.style.background = '#f0fff3';
-      checkoutMessageEl.style.color = '#1f5d28';
-      checkoutMessageEl.textContent = 'Cảm ơn bạn đã mua hàng! ' + summary.replace(/\n/g, ' • ');
-      Object.keys(cart).forEach(k => delete cart[k]);
-      renderCart();
+      checkoutMessageEl.style.background = '#fff4e8';
+      checkoutMessageEl.style.color = '#6b4031';
+      checkoutMessageEl.textContent = 'Chọn phương thức thanh toán để hoàn tất đơn hàng. Tổng: ' + total + 'k.';
     }
 
     renderCart();
