@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Management System | Premium Experience</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">☕</span>
+                <span class="logo-text">Espresso<span>Hub</span></span>
+            </div>
+            <nav>
+                <button class="nav-item active" data-view="shop">
+                    <span class="icon">🛒</span> Cửa hàng
+                </button>
+                <button class="nav-item" data-view="orders">
+                    <span class="icon">📋</span> Đơn hàng
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="avatar">AD</div>
+                    <div class="details">
+                        <p class="name">Admin Coffee</p>
+                        <p class="role">Quản lý</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header>
+                <h1 id="view-title">Thực đơn Coffee</h1>
+                <div class="header-actions">
+                    <button id="cart-toggle" class="btn-cart">
+                        <span class="icon">🛍️</span>
+                        <span id="cart-count" class="badge">0</span>
+                    </button>
+                </div>
+            </header>
+
+            <section id="shop-view" class="view">
+                <div class="category-filters">
+                    <button class="filter-btn active" data-filter="all">Tất cả</button>
+                    <button class="filter-btn" data-filter="Cà phê">Cà phê</button>
+                    <button class="filter-btn" data-filter="Espresso">Espresso</button>
+                    <button class="filter-btn" data-filter="Trà">Trà</button>
+                    <button class="filter-btn" data-filter="Đá xay">Đá xay</button>
+                    <button class="filter-btn" data-filter="Bánh">Bánh</button>
+                </div>
+                <div id="product-grid" class="product-grid">
+                    <!-- Products will be injected here -->
+                </div>
+            </section>
+
+            <section id="orders-view" class="view hidden">
+                <div class="orders-table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Mã HD</th>
+                                <th>Ngày lập</th>
+                                <th>Khách hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Thanh toán</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-list">
+                            <!-- Orders will be injected here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- Cart Sidebar Overlay -->
+        <div id="cart-overlay" class="overlay hidden"></div>
+        <aside id="cart-sidebar" class="cart-sidebar hidden">
+            <div class="cart-header">
+                <h2>Giỏ hàng</h2>
+                <button id="cart-close" class="btn-close">&times;</button>
+            </div>
+            <div id="cart-items" class="cart-items">
+                <!-- Cart items injected here -->
+                <div class="empty-cart-msg">Giỏ hàng đang trống</div>
+            </div>
+            <div class="cart-footer">
+                <div class="total-row">
+                    <span>Tổng cộng:</span>
+                    <span id="cart-total">0₫</span>
+                </div>
+                <div class="payment-method">
+                    <label>Phương thức thanh toán:</label>
+                    <select id="payment-select">
+                        <option value="Cash">Tiền mặt (Cash)</option>
+                        <option value="Transfer">Chuyển khoản</option>
+                    </select>
+                </div>
+                <div class="customer-info">
+                    <input type="text" id="customer-name" placeholder="Tên khách hàng..." required>
+                </div>
+                <button id="checkout-btn" class="btn-checkout" disabled>Thanh toán ngay</button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Chi tiết đơn hàng <span id="modal-mahd"></span></h3>
+                <button class="btn-close modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="order-details-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
+    <script src="src/db.js"></script>
+    <script src="src/app.js"></script>
+</body>
+</html>
